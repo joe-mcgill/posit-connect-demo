@@ -139,7 +139,7 @@ newIris=r.newIris
 print(pd.DataFrame(newIris))
 ```
 
-Plotly doesn't seem to work yet from python. This option or building them in r with the plotly command will work
+Plotly doesn't seem to work yet from python. This option or building them in r with the plotly command will work.
 
 ```{r}
 ggplotly(ggplotIris)
