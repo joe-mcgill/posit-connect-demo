@@ -16,6 +16,8 @@ This will just show the html side of things. I can add a slides version of the s
 #|include: false
 #|echo: true
 
+library(reticulate)
+use_virtualenv('positDemo')
 library(tidyverse)
 library(ggplot2)
 theme_set(theme_classic()+theme(axis.text=element_text(size=14),
@@ -61,7 +63,6 @@ we can have little drop downs that hide code unless people are interested
 
 Some clustering and plotting in R using:
 
-
 *Edgar Anderson's Iris Data*
 
 This famous (Fisher's or Anderson's) iris data set gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are Iris setosa, versicolor, and virginica.
@@ -71,8 +72,6 @@ data("iris")
 ```
 
 This is the data set. The colors show the species.
-
-
 
 ```{r}
 DT::datatable(iris)
@@ -86,14 +85,13 @@ Just applying a simple linear regression:
 
 ```
 
-
 ```{r}
 ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point(aes(col=Species), size=4)+
   geom_abline(intercept = irisFit$coefficients[1],
               slope = irisFit$coefficients[2])
 ```
 
-On to the clustering. 
+On to the clustering.
 
 ```{r}
 set.seed(101)
@@ -122,10 +120,18 @@ newIris %>%
   theme(legend.position = 'none')
 ```
 
+## Interactive plots are also renderable in Quarto Docs
+
+### Lets switch that data to python just to show cross platform usage
 
 ```{python}
 import pandas as pd
+import plotly.express as px
 
 newIris=r.newIris
-print(pd.Dataframe(newIris))
+print(pd.DataFrame(newIris))
+```
+
+```{python}
+
 ```
