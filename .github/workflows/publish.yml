@@ -1,0 +1,23 @@
+on:
+  workflow_dispatch:
+  push:
+  branches: main
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+  runs-on: ubuntu-latest
+steps:
+  - name: Check out repository
+uses: actions/checkout@v4
+
+- name: Set up Quarto
+uses: quarto-dev/quarto-actions/setup@v2
+
+- name: Render and Publish
+uses: quarto-dev/quarto-actions/publish@v2
+with:
+  target: posit-cloud
+POSIT_CLOUD_TOKEN: F69A5954CC09A97B7D74C73C6C7384EB
+POSIT_CLOUD_SECRET: ${{ secrets.POSIT_CLOUD_SECRET }}
