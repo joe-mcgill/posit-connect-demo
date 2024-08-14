@@ -21,4 +21,4 @@ jobs:
         with:
           target: posit-cloud
           POSIT_CLOUD_TOKEN: F69A5954CC09A97B7D74C73C6C7384EB
-          POSIT_CLOUD_SECRET: ${{ secrets.POSIT_CLOUD_SECRET }}
+          POSIT_CLOUD_SECRET: ${{ secrets.CONNECT_API_KEY }}
