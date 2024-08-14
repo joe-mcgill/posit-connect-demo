@@ -133,5 +133,5 @@ print(pd.DataFrame(newIris))
 ```
 
 ```{python}
-
+px.scatter(newIris,x='Sepal.Length',y='Sepal.Width',color='Species',symbol='cluster')
 ```
