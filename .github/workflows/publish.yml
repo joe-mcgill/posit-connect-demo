@@ -1,13 +1,15 @@
 on:
   workflow_dispatch:
   push:
-    branches: main
+    branches: 
+      -main
 
 name: Quarto Publish
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -20,5 +22,6 @@ jobs:
   
         with:
           target: posit-cloud
+          path: quartodemo.qmd
           POSIT_CLOUD_TOKEN: F69A5954CC09A97B7D74C73C6C7384EB
           POSIT_CLOUD_SECRET: ${{ secrets.CONNECT_API_KEY }}
