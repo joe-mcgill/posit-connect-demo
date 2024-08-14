@@ -1,29 +1,19 @@
 ---
-title: "Output of Quarto"
+title: check env
 format: html
-editor: source
 ---
 
-This is new
-
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## HTML pdf and slides
-
-This will just show the html side of things. I can add a slides version of the same too.
+`QUARTO_PYTHON` is set to {{< env QUARTO_PYTHON >}}
 
 ```{r setup}
 #|include: false
 #|echo: true
 
-#library(reticulate)
-#use_virtualenv('demoPositCloud')
+library(reticulate)
+use_virtualenv('demoPositCloud')
 
 library(tidyverse)
 library(ggplot2)
-library(plotly)
 theme_set(theme_classic()+theme(axis.text=element_text(size=14),
                                 axis.title=element_text(size=16),
                                 legend.text = element_text(size=14),
@@ -34,6 +24,7 @@ options(ggplot2.discrete.colour="viridis")
 
 ```
 
+
 ## R just works
 
 ```{r}
@@ -43,7 +34,7 @@ options(ggplot2.discrete.colour="viridis")
 ## So does python
 
 ```{python}
-1+1
+2 * 2
 ```
 
 ## Code visibility
@@ -109,11 +100,9 @@ This section might be interesting to statisticians but we should plot it
 newIris <- iris %>% 
   mutate(cluster=as.character(irisCluster$cluster))
 
-ggplotIris<-newIris %>% 
+newIris %>% 
   ggplot(aes(x=Petal.Length,y=Petal.Width,col=Species))+
   geom_point(aes(shape=cluster),size=4)
-
-ggplotIris
 ```
 
 ```{r}
@@ -126,23 +115,6 @@ newIris %>%
   theme(legend.position = 'none')
 ```
 
-## Interactive plots are also renderable in Quarto Docs
 
-### Lets switch that data to python just to show cross platform usage
-
-```{python}
-
-import pandas as pd
-import plotly.express as px
-
-newIris=r.newIris
-print(pd.DataFrame(newIris))
-```
-
-Plotly doesn't seem to work yet from python. This option or building them in r with the plotly command will work
-
-```{r}
-ggplotly(ggplotIris)
-```
 
 
