@@ -1,0 +1,131 @@
+---
+title: "Output of Quarto"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## HTML pdf and slides
+
+This will just show the html side of things. I can add a slides version of the same too.
+
+```{r setup}
+#|include: false
+#|echo: true
+
+library(tidyverse)
+library(ggplot2)
+theme_set(theme_classic()+theme(axis.text=element_text(size=14),
+                                axis.title=element_text(size=16),
+                                legend.text = element_text(size=14),
+                                legend.title = element_text(size=14)))
+
+options(ggplot2.continuous.colour="viridis")
+options(ggplot2.discrete.colour="viridis")
+
+```
+
+## R just works
+
+```{r}
+1 + 1
+```
+
+## So does python
+
+```{python}
+2 * 2
+```
+
+## Code visibility
+
+we can hide it:
+
+```{r}
+#| echo: false
+1+1
+```
+
+we can have little drop downs that hide code unless people are interested
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+1+1
+```
+
+## This tool is also for things beyond addition
+
+Some clustering and plotting in R using:
+
+
+*Edgar Anderson's Iris Data*
+
+This famous (Fisher's or Anderson's) iris data set gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are Iris setosa, versicolor, and virginica.
+
+```{r}
+data("iris")
+```
+
+This is the data set. The colors show the species.
+
+
+
+```{r}
+DT::datatable(iris)
+ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point(aes(col=Species), size=4)
+```
+
+Just applying a simple linear regression:
+
+```{r}
+(irisFit=lm(Petal.Width~Petal.Length,data=iris))
+
+```
+
+
+```{r}
+ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point(aes(col=Species), size=4)+
+  geom_abline(intercept = irisFit$coefficients[1],
+              slope = irisFit$coefficients[2])
+```
+
+On to the clustering. 
+
+```{r}
+set.seed(101)
+irisCluster <- kmeans(iris[,1:4], center=3, nstart=20)
+irisCluster
+```
+
+This section might be interesting to statisticians but we should plot it
+
+```{r}
+newIris <- iris %>% 
+  mutate(cluster=as.character(irisCluster$cluster))
+
+newIris %>% 
+  ggplot(aes(x=Petal.Length,y=Petal.Width,col=Species))+
+  geom_point(aes(shape=cluster),size=4)
+```
+
+```{r}
+newIris %>%
+  count(Species,cluster) %>% 
+  ggplot(aes(x=Species,y=cluster,fill=n))+geom_tile()+
+  geom_text(aes(label = round(n, 1))) +
+  scale_fill_gradient(low = "white", high = "blue")+
+  theme_classic()+
+  theme(legend.position = 'none')
+```
+
+
+```{python}
+import pandas as pd
+
+newIris=r.newIris
+print(pd.Dataframe(newIris))
+```
