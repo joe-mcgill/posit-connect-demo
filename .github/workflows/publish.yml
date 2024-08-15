@@ -21,6 +21,4 @@
               path: quartodemo.qmd
               POSIT_CLOUD_TOKEN: F69A5954CC09A97B7D74C73C6C7384EB
               POSIT_CLOUD_SECRET: ${{ secrets.CONNECT_API_KEY }}
-              access-type: logged_in
-              dir: |
-                .:/shiny-app-demo-cicd-github-actions
+
